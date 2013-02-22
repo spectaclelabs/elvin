@@ -54,9 +54,6 @@ public:
     */
 
     virtual bool process(const TimeData &time) {
-        return true;
-    }
-    /*
         // Work out how to run callback here!
 
         NextTuple tuple = durationPattern->next();
@@ -64,12 +61,11 @@ public:
         bool hasValue = std::get<1>(tuple);
 
         if (hasValue) {
-            time += value * time.beatLength;
+            this->time += value * time.beatLength;
             return true;
         }
         return false;
     }
-    */
 
     std::array<Pattern, numberOfPatterns> patterns;
     Pattern durationPattern;
