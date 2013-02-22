@@ -45,14 +45,6 @@ public:
 template <size_t numberOfPatterns, typename CallbackType>
 class PatternEvent : public Event {
 public:
-    /*
-    PatternEvent(std::array<Pattern, numberOfPatterns> patterns,
-                 Pattern durationPattern, CallbackType callback):
-        patterns(std::move(patterns)),
-        durationPattern(std::move(durationPattern)),
-        callback(callback) {}
-    */
-
     virtual bool process(const TimeData &time) {
         // Work out how to run callback here!
 
