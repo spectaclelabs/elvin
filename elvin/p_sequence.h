@@ -1,8 +1,6 @@
 #ifndef P_SEQUENCE_H
 #define P_SEQUENCE_H
 
-#include <array>
-
 #include "pattern.h"
 
 namespace elvin {
@@ -43,26 +41,26 @@ public:
         }
     }
 
-    static Pattern create(std::array<Pattern, N> sequence, uint32_t repeats,
+    static Pattern create(PatternArray<N> sequence, uint32_t repeats,
                           uint32_t offset) {
         return Pattern(new PSequenceT(std::move(sequence), repeats, offset));
     }
 
 private:
-    PSequenceT(std::array<Pattern, N> sequence, uint32_t repeats,
+    PSequenceT(PatternArray<N> sequence, uint32_t repeats,
               uint32_t offset) :
         sequence(std::move(sequence)), repeats(repeats), offset(offset),
         position(0) {
     }
 
-    std::array<Pattern, N> sequence;
+    PatternArray<N> sequence;
     uint32_t repeats;
     uint32_t offset;
     uint32_t position;
 };
 
 template <size_t N>
-Pattern PSequence(std::array<Pattern, N> sequence, uint32_t repeats=1,
+Pattern PSequence(PatternArray<N> sequence, uint32_t repeats=1,
                   uint32_t offset=0) {
     return PSequenceT<N>::create(std::move(sequence), repeats, offset);
 }
