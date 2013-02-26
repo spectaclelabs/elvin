@@ -8,7 +8,6 @@
 #include "thelonious/rates.h"
 
 #include "event.h"
-#include "types.h"
 #include "time_data.h"
 
 namespace elvin {

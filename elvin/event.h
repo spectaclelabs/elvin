@@ -74,7 +74,7 @@ private:
     // Runs the callback samples collected from the patterns
     bool runCallback() {
         // Collect the next value from each of the patterns
-        ValueArray<numberOfPatterns> arguments;
+        std::array<Sample, numberOfPatterns> arguments;
         for (int i=0; i<numberOfPatterns; i++) {
             NextTuple tuple = patterns[i]->next();
 
@@ -95,7 +95,7 @@ private:
     // Expansion is done using an index pack.  I really don't understand how
     // this works :D
     template <size_t... I>
-    void call(ValueArray<numberOfPatterns> &arguments, indices<I...>) {
+    void call(std::array<Sample, numberOfPatterns> &arguments, indices<I...>) {
         callback(arguments[I]...);
     }
 };
@@ -105,6 +105,9 @@ bool compareEventTime(std::unique_ptr<Event> &a, std::unique_ptr<Event> &b) {
 }
 
 typedef std::unique_ptr<Event> EventPtr;
+
+template <size_t N>
+using EventArray = std::array<EventPtr, N>;
 
 }
 

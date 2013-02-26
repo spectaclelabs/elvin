@@ -25,6 +25,9 @@ public:
     Pattern(PatternT *pattern) : std::unique_ptr<PatternT>(pattern) {}
 };
 
+template <size_t N>
+using PatternArray = std::array<Pattern, N>;
+
 }
 
 #endif
