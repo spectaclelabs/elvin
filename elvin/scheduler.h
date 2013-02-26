@@ -8,6 +8,7 @@
 #include "thelonious/rates.h"
 
 #include "event.h"
+#include "types.h"
 #include "time_data.h"
 
 namespace elvin {
@@ -61,7 +62,7 @@ public:
     }
 
     template <size_t numberOfPatterns, typename CallbackType>
-    uint32_t play(std::array<Pattern, numberOfPatterns> patterns,
+    uint32_t play(PatternArray<numberOfPatterns> patterns,
                   Pattern durationPattern,
                   CallbackType callback) {
         if (full()) {
@@ -106,12 +107,12 @@ public:
                 
     void tick() {
         uint32_t endTime = time.time + BLOCK_SIZE;
-        while (events[0]->time <= endTime) {
+
+        while (numberOfEvents && events[0]->time <= endTime) {
             time.time = events[0]->time;
             updateClock();
-
             pop();
-            std::unique_ptr<Event> &event = *(events.begin() + numberOfEvents);
+            std::unique_ptr<Event> &event = *(events.begin() + numberOfEvents - 1);
             bool needsPush = event->process(time);
             if (needsPush) {
                 push();
@@ -162,7 +163,7 @@ private:
     }
 
     TimeData time;
-    std::array<std::unique_ptr<Event>, maxEvents> events;
+    EventArray<maxEvents> events;
     size_t numberOfEvents;
 };
 
