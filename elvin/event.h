@@ -1,11 +1,12 @@
 #ifndef ELVIN_EVENT_H
 #define ELVIN_EVENT_H
 
+#include <array>
+#include <tuple>
 #include <functional>
 
 #include "thelonious/types.h"
 
-#include "scheduler.h"
 #include "pattern.h"
 #include "time_data.h"
 #include "indices.h"

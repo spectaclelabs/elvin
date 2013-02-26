@@ -1,11 +1,11 @@
 #ifndef ELVIN_SCHEDULER_H
 #define ELVIN_SCHEDULER_H
 
-#include <array>
 #include <memory>
 #include <algorithm>
+#include <functional>
 
-#include "thelonious/rates.h"
+#include "thelonious/types.h"
 
 #include "event.h"
 #include "time_data.h"

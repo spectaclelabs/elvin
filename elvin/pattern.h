@@ -1,6 +1,7 @@
 #ifndef ELVIN_PATTERN_H
 #define ELVIN_PATTERN_H
 
+#include <array>
 #include <memory>
 
 #include "thelonious/types.h"

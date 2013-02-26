@@ -1,7 +1,11 @@
 #ifndef ELVIN_P_SEQUENCE_H
 #define ELVIN_P_SEQUENCE_H
 
+#include <utility>
+#include <tuple>
+
 #include "pattern.h"
+#include "pattern_t.h"
 
 namespace elvin {
 

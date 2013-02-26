@@ -1,10 +1,10 @@
 #ifndef ELVIN_P_LITERAL_H
 #define ELVIN_P_LITERAL_H
 
-#include <cstdlib>
-#include <limits>
+#include <tuple>
 
-#include "pattern.h"
+#include "thelonious/types.h"
+
 #include "pattern_t.h"
 
 namespace elvin {

@@ -2,6 +2,9 @@
 #define ELVIN_TIME_DATA_H
 
 #include "thelonious/types.h"
+#include "thelonious/rates.h"
+
+using namespace thelonious;
 
 namespace elvin {
 

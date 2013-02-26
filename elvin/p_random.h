@@ -1,8 +1,9 @@
 #ifndef ELVIN_P_RANDOM_H
 #define ELVIN_P_RANDOM_H
 
-#include <cstdlib>
 #include <limits>
+
+#include "thelonious/types.h"
 
 #include "pattern.h"
 #include "pattern_t.h"
