@@ -66,7 +66,7 @@ public:
         return false;
     }
 
-    std::array<Pattern, numberOfPatterns> patterns;
+    PatternArray<numberOfPatterns> patterns;
     Pattern durationPattern;
     CallbackType callback;
 
@@ -74,7 +74,7 @@ private:
     // Runs the callback samples collected from the patterns
     bool runCallback() {
         // Collect the next value from each of the patterns
-        std::array<Sample, numberOfPatterns> arguments;
+        ValueArray<numberOfPatterns> arguments;
         for (int i=0; i<numberOfPatterns; i++) {
             NextTuple tuple = patterns[i]->next();
 
@@ -95,7 +95,7 @@ private:
     // Expansion is done using an index pack.  I really don't understand how
     // this works :D
     template <size_t... I>
-    void call(std::array<Sample, numberOfPatterns> &arguments, indices<I...>) {
+    void call(ValueArray<numberOfPatterns> &arguments, indices<I...>) {
         callback(arguments[I]...);
     }
 };
