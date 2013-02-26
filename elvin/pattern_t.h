@@ -1,5 +1,5 @@
-#ifndef PATTERN_T_H
-#define PATTERN_T_H
+#ifndef ELVIN_PATTERN_T_H
+#define ELVIN_PATTERN_T_H
 
 #include <tuple>
 #include "thelonious/types.h"

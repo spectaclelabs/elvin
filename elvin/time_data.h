@@ -1,5 +1,5 @@
-#ifndef TIME_DATA_H
-#define TIME_DATA_H
+#ifndef ELVIN_TIME_DATA_H
+#define ELVIN_TIME_DATA_H
 
 #include "thelonious/types.h"
 

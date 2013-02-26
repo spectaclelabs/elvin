@@ -1,5 +1,5 @@
-#ifndef P_LITERAL_H
-#define P_LITERAL_H
+#ifndef ELVIN_P_LITERAL_H
+#define ELVIN_P_LITERAL_H
 
 #include <cstdlib>
 #include <limits>

@@ -1,5 +1,5 @@
-#ifndef SCHEDULER_H
-#define SCHEDULER_H
+#ifndef ELVIN_SCHEDULER_H
+#define ELVIN_SCHEDULER_H
 
 #include <array>
 #include <memory>

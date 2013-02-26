@@ -1,5 +1,5 @@
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef ELVIN_TYPES_H
+#define ELVIN_TYPES_H
 
 #include "thelonious/types.h"
 

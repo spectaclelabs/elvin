@@ -1,5 +1,5 @@
-#ifndef P_RANDOM_H
-#define P_RANDOM_H
+#ifndef ELVIN_P_RANDOM_H
+#define ELVIN_P_RANDOM_H
 
 #include <cstdlib>
 #include <limits>

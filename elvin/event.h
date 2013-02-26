@@ -1,5 +1,5 @@
-#ifndef EVENT_H
-#define EVENT_H
+#ifndef ELVIN_EVENT_H
+#define ELVIN_EVENT_H
 
 #include <functional>
 

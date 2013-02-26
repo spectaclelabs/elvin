@@ -1,5 +1,5 @@
-#ifndef INDICES_H
-#define INDICES_H
+#ifndef ELVIN_INDICES_H
+#define ELVIN_INDICES_H
 
 namespace elvin {
 

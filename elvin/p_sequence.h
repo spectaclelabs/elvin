@@ -1,5 +1,5 @@
-#ifndef P_SEQUENCE_H
-#define P_SEQUENCE_H
+#ifndef ELVIN_P_SEQUENCE_H
+#define ELVIN_P_SEQUENCE_H
 
 #include "pattern.h"
 

@@ -1,5 +1,5 @@
-#ifndef PATTERN_H
-#define PATTERN_H
+#ifndef ELVIN_PATTERN_H
+#define ELVIN_PATTERN_H
 
 #include <memory>
 
