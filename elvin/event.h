@@ -76,7 +76,7 @@ private:
     bool runCallback() {
         // Collect the next value from each of the patterns
         std::array<Sample, numberOfPatterns> arguments;
-        for (int i=0; i<numberOfPatterns; i++) {
+        for (uint32_t i=0; i<numberOfPatterns; i++) {
             NextTuple tuple = patterns[i]->next();
 
             bool hasValue = std::get<1>(tuple);

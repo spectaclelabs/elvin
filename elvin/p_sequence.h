@@ -40,7 +40,7 @@ public:
 
     virtual void reset() {
         position = 0;
-        for (int i=0; i<N; i++) {
+        for (uint32_t i=0; i<N; i++) {
             sequence[i]->reset();
         }
     }
