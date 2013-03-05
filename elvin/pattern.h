@@ -13,21 +13,18 @@ using namespace thelonious;
 
 namespace elvin {
 
-class Pattern : public std::unique_ptr<PatternT> {
+class Pattern : public std::shared_ptr<PatternT> {
 public:
-    Pattern() : std::unique_ptr<PatternT>() {}
-    Pattern(Sample s) : std::unique_ptr<PatternT>(new PLiteralT(s)) {}
+    Pattern() : std::shared_ptr<PatternT>() {}
+    Pattern(Sample s) : std::shared_ptr<PatternT>(new PLiteralT(s)) {}
 
 
     // Inheriting constructors - implemented in GCC 4.8
     // We explicitly forward PatternT * to the correct constructor instead
-    //using std::unique_ptr<PatternT>::std::unique_ptr<PatternT>;
+    //using std::shared_ptr<PatternT>::std::shared_ptr<PatternT>;
     
-    Pattern(PatternT *pattern) : std::unique_ptr<PatternT>(pattern) {}
+    Pattern(PatternT *pattern) : std::shared_ptr<PatternT>(pattern) {}
 };
-
-template <size_t N>
-using PatternArray = std::array<Pattern, N>;
 
 }
 
