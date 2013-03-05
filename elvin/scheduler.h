@@ -4,10 +4,13 @@
 #include <memory>
 #include <algorithm>
 #include <functional>
+#include <array>
 
 #include "thelonious/types.h"
 
 #include "event.h"
+#include "basic_event.h"
+#include "pattern_event.h"
 #include "time_data.h"
 
 namespace elvin {
@@ -24,9 +27,8 @@ public:
             return 0;
         }
 
-        std::unique_ptr<BasicEvent> event(new BasicEvent());
-        event->callback = callback;
-        event->time = time.time + beats * time.beatLength;
+        Sample eventTime = time.time + beats * time.beatLength;
+        std::unique_ptr<BasicEvent> event(new BasicEvent(eventTime, callback));
 
         uint32_t id = event->id;
 
@@ -47,9 +49,9 @@ public:
             return 0;
         }
 
-        std::unique_ptr<BasicEvent> event(new BasicEvent());
-        event->callback = callback;
-        event->time = time.lastBeatTime + (beat - time.beat) * time.beatLength;
+        Sample eventTime = time.lastBeatTime + (beat - time.beat) *
+                           time.beatLength;
+        std::unique_ptr<BasicEvent> event(new BasicEvent(eventTime, callback));
 
         uint32_t id = event->id;
 
@@ -60,25 +62,19 @@ public:
         return id;
     }
 
-    template <size_t numberOfPatterns, typename CallbackType>
-    uint32_t play(PatternArray<numberOfPatterns> patterns,
+    template <typename CallbackType>
+    uint32_t play(std::initializer_list<Pattern> patterns,
                   Pattern durationPattern,
                   CallbackType callback) {
         if (full()) {
             return 0;
         }
 
-        
-
-        std::unique_ptr<PatternEvent<numberOfPatterns, CallbackType>>
-            event(new PatternEvent<numberOfPatterns, CallbackType>());
-
-        event->patterns = std::move(patterns);
-        event->durationPattern = std::move(durationPattern);
-        event->callback = callback;
-        
-        // TODO: Quantizing start time
-        event->time = time.time;
+        std::unique_ptr<PatternEvent<CallbackType>>
+            event(new PatternEvent<CallbackType>(time.time,
+                                                 std::move(patterns),
+                                                 std::move(durationPattern),
+                                                 callback));
 
         uint32_t id = id;
 
@@ -162,7 +158,7 @@ private:
     }
 
     TimeData time;
-    EventArray<maxEvents> events;
+    std::array<EventPtr, maxEvents> events;
     size_t numberOfEvents;
 };
 
