@@ -3,21 +3,21 @@
 
 #include <utility>
 #include <tuple>
+#include <vector>
 
 #include "pattern.h"
 #include "pattern_t.h"
 
 namespace elvin {
 
-template <size_t N>
 class PSequenceT : public PatternT {
 public:
     virtual NextTuple next() {
-        if (position >= repeats * N) {
+        if (position >= repeats * sequence.size()) {
             return NextTuple(0.0f, false, false);
         }
 
-        uint32_t index = (position + offset) % N;
+        uint32_t index = (position + offset) % sequence.size();
 
         NextTuple tuple = sequence[index]->next();
 
@@ -40,33 +40,32 @@ public:
 
     virtual void reset() {
         position = 0;
-        for (uint32_t i=0; i<N; i++) {
+        for (uint32_t i=0; i<sequence.size(); i++) {
             sequence[i]->reset();
         }
     }
 
-    static Pattern create(PatternArray<N> sequence, uint32_t repeats,
-                          uint32_t offset) {
+    static Pattern create(std::initializer_list<Pattern> sequence,
+                          uint32_t repeats, uint32_t offset) {
         return Pattern(new PSequenceT(std::move(sequence), repeats, offset));
     }
 
 private:
-    PSequenceT(PatternArray<N> sequence, uint32_t repeats,
+    PSequenceT(std::initializer_list<Pattern> sequence, uint32_t repeats,
               uint32_t offset) :
-        sequence(std::move(sequence)), repeats(repeats), offset(offset),
+        sequence(sequence), repeats(repeats), offset(offset),
         position(0) {
     }
 
-    PatternArray<N> sequence;
+    std::vector<Pattern> sequence;
     uint32_t repeats;
     uint32_t offset;
     uint32_t position;
 };
 
-template <size_t N>
-Pattern PSequence(PatternArray<N> sequence, uint32_t repeats=1,
+Pattern PSequence(std::initializer_list<Pattern> sequence, uint32_t repeats=1,
                   uint32_t offset=0) {
-    return PSequenceT<N>::create(std::move(sequence), repeats, offset);
+    return PSequenceT::create(std::move(sequence), repeats, offset);
 }
 
 }
