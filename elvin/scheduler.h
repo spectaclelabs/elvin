@@ -34,7 +34,6 @@ public:
 
         events[numberOfEvents] = std::move(event);
         push();
-        numberOfEvents++;
 
         return id;
     }
@@ -56,7 +55,6 @@ public:
 
         events[numberOfEvents] = std::move(event);
         push();
-        numberOfEvents++;
 
         return id;
     }
@@ -79,7 +77,6 @@ public:
 
         events[numberOfEvents] = std::move(event);
         push();
-        numberOfEvents++;
         
         return id;
     }
@@ -107,13 +104,10 @@ public:
             time.time = events[0]->time;
             updateClock();
             pop();
-            std::unique_ptr<Event> &event = *(events.begin() + numberOfEvents - 1);
+            std::unique_ptr<Event> &event = *(events.begin() + numberOfEvents);
             bool needsPush = event->process(time);
             if (needsPush) {
                 push();
-            }
-            else {
-                numberOfEvents--;
             }
         }
         time.time = endTime;
@@ -126,11 +120,13 @@ private:
     void push() {
         std::push_heap(events.begin(), events.begin() + numberOfEvents,
                        compareEventTime);
+        numberOfEvents++;
     }
 
     void pop() {
         std::pop_heap(events.begin(), events.begin() + numberOfEvents,
                       compareEventTime);
+        numberOfEvents--;
     }
 
     bool full() {
