@@ -23,10 +23,10 @@ uint32_t EventStatics<Dummy>::nextId = 1;
 
 class Event : public EventStatics<void> {
 public:
-    Event(Sample time) : time(time), id(nextId++) {}
+    Event(uint32_t time) : time(time), id(nextId++) {}
     virtual bool process(const TimeData &time) = 0;
 
-    Sample time;
+    uint32_t time;
     const uint32_t id;
 };
 

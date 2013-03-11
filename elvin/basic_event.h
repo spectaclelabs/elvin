@@ -13,7 +13,7 @@ namespace elvin {
 
 class BasicEvent : public Event {
 public:
-    BasicEvent(Sample time, std::function<void()> callback) :
+    BasicEvent(uint32_t time, std::function<void()> callback) :
         Event(time), callback(callback) {}
 
     virtual bool process(const TimeData &time) {

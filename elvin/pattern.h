@@ -16,7 +16,7 @@ namespace elvin {
 class Pattern : public std::shared_ptr<PatternT> {
 public:
     Pattern() : std::shared_ptr<PatternT>() {}
-    Pattern(Sample s) : std::shared_ptr<PatternT>(new PLiteralT(s)) {}
+    Pattern(float s) : std::shared_ptr<PatternT>(new PLiteralT(s)) {}
 
 
     // Inheriting constructors - implemented in GCC 4.8

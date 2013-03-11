@@ -18,7 +18,7 @@ namespace elvin {
 template <typename CallbackType>
 class PatternEvent : public Event {
 public:
-    PatternEvent(Sample time, std::initializer_list<Pattern> patterns,
+    PatternEvent(uint32_t time, std::initializer_list<Pattern> patterns,
                  Pattern durationPattern, CallbackType callback) :
         Event(time), patterns(patterns), arguments(patterns.size()),
         durationPattern(std::move(durationPattern)), callback(callback),
@@ -38,7 +38,8 @@ public:
         bool hasValue = std::get<1>(tuple);
 
         if (hasValue) {
-            this->time += value * time.beatLength;
+            uint32_t dt = uint32_t(value) * time.beatLength;
+            this->time += dt;
             return true;
         }
         return false;

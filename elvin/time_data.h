@@ -10,11 +10,12 @@ namespace elvin {
 
 struct TimeData {
 public:
-    TimeData(Sample bpm) :
-        bpm(bpm), time(0), beat(0), beatInBar(0), bar(0), beatsPerBar(0),
-        lastBeatTime(0), beatLength(60 / bpm * SAMPLE_RATE) {}
+    TimeData(float bpm) :
+        bpm(bpm), time(0.0f), beat(0.0f), beatInBar(0.0f), bar(0.0f),
+        beatsPerBar(0.0f), lastBeatTime(0.0f),
+        beatLength(SAMPLE_RATE * 60.0f / bpm) {}
         
-    Sample bpm;
+    float bpm;
     uint32_t time;
     uint32_t beat;
     uint32_t beatInBar;

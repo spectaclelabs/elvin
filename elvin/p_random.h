@@ -17,7 +17,9 @@ public:
             return NextTuple(0.0f, false, false);
         }
 
-        Sample value = low + (high - low) * ((Sample) rand()) / RAND_MAX;
+        float random = std::rand();
+        random /= RAND_MAX;
+        Sample value = low + (high - low) * random;
         position++;
 
         return NextTuple(value, true, false);

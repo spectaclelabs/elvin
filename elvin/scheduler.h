@@ -27,7 +27,7 @@ public:
             return 0;
         }
 
-        Sample eventTime = time.time + beats * time.beatLength;
+        uint32_t eventTime = time.time + beats * time.beatLength;
         std::unique_ptr<BasicEvent> event(new BasicEvent(eventTime, callback));
 
         uint32_t id = event->id;
@@ -39,7 +39,6 @@ public:
         return id;
     }
 
-
     uint32_t addAbsolute(Sample beat, std::function<void()>callback) {
         if (full()) {
             return 0;
@@ -49,7 +48,7 @@ public:
             return 0;
         }
 
-        Sample eventTime = time.lastBeatTime + (beat - time.beat) *
+        uint32_t eventTime = time.lastBeatTime + (beat - time.beat) *
                            time.beatLength;
         std::unique_ptr<BasicEvent> event(new BasicEvent(eventTime, callback));
 
@@ -99,7 +98,8 @@ public:
             }
         }
     }
-                
+
+
     void tick() {
         uint32_t endTime = time.time + BLOCK_SIZE;
 
@@ -120,7 +120,6 @@ public:
         updateClock();
     }
 
-
     // TODO: Getters and setters
 
 private:
@@ -138,14 +137,13 @@ private:
         return numberOfEvents >= maxEvents;
     }
                 
-
     void updateClock() {
         while (time.time > time.lastBeatTime + time.beatLength) {
             time.beat++;
-            time.beatInBar++;
+            time.beatInBar++;;
             if (time.beatInBar == time.beatsPerBar) {
                 time.bar++;
-                time.beatInBar = 0;
+                time.beatInBar = 0u;
             }
             time.lastBeatTime += time.beatLength;
         }
