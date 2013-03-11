@@ -103,8 +103,8 @@ public:
         while (numberOfEvents && events[0]->time <= endTime) {
             time.time = events[0]->time;
             updateClock();
+            std::unique_ptr<Event> &event = events[0];
             pop();
-            std::unique_ptr<Event> &event = *(events.begin() + numberOfEvents);
             bool needsPush = event->process(time);
             if (needsPush) {
                 push();
@@ -118,15 +118,15 @@ public:
 
 private:
     void push() {
+        numberOfEvents++;
         std::push_heap(events.begin(), events.begin() + numberOfEvents,
                        compareEventTime);
-        numberOfEvents++;
     }
 
     void pop() {
+        numberOfEvents--;
         std::pop_heap(events.begin(), events.begin() + numberOfEvents,
                       compareEventTime);
-        numberOfEvents--;
     }
 
     bool full() {

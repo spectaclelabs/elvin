@@ -33,7 +33,7 @@ public:
 typedef std::unique_ptr<Event> EventPtr;
 
 bool compareEventTime(EventPtr &a, EventPtr &b) {
-    return a->time < b->time;
+    return a->time > b->time;
 }
 
 }

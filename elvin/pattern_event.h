@@ -38,7 +38,7 @@ public:
         bool hasValue = std::get<1>(tuple);
 
         if (hasValue) {
-            uint32_t dt = uint32_t(value) * time.beatLength;
+            uint32_t dt = value * time.beatLength;
             this->time += dt;
             return true;
         }
