@@ -13,7 +13,7 @@ namespace elvin {
 class PRandomT : public PatternT {
 public:
     virtual NextTuple next() {
-        if (position >= repeats) {
+        if (repeats > 0 && position >= repeats) {
             return NextTuple(0.0f, false, false);
         }
 
@@ -45,7 +45,7 @@ private:
 };
 
 Pattern PRandom(Sample low=0.0f, Sample high=1.0f,
-                uint32_t repeats=std::numeric_limits<uint32_t>::max()) {
+                uint32_t repeats=0) {
     return PRandomT::create(low, high, repeats);
 }
 

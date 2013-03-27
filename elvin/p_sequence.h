@@ -13,7 +13,7 @@ namespace elvin {
 class PSequenceT : public PatternT {
 public:
     virtual NextTuple next() {
-        if (position >= repeats * sequence.size()) {
+        if (repeats > 0 && position >= repeats * sequence.size()) {
             return NextTuple(0.0f, false, false);
         }
 
