@@ -6,7 +6,7 @@
 #include <functional>
 #include <array>
 
-#include "thelonious/types.h"
+#include "thelonious/constants/sizes.h"
 
 #include "event.h"
 #include "basic_event.h"
@@ -18,11 +18,11 @@ namespace elvin {
 template <size_t maxEvents=16>
 class Scheduler {
 public:
-    Scheduler(Sample bpm=120.0f) :
+    Scheduler(float bpm=120.0f) :
         time(bpm) {
     }
 
-    uint32_t addRelative(Sample beats, std::function<void()>callback) {
+    uint32_t addRelative(float beats, std::function<void()>callback) {
         if (full()) {
             return 0;
         }
@@ -38,7 +38,7 @@ public:
         return id;
     }
 
-    uint32_t addAbsolute(Sample beat, std::function<void()>callback) {
+    uint32_t addAbsolute(float beat, std::function<void()>callback) {
         if (full()) {
             return 0;
         }
@@ -98,7 +98,7 @@ public:
 
 
     void tick() {
-        uint32_t endTime = time.time + BLOCK_SIZE;
+        uint32_t endTime = time.time + thelonious::constants::BLOCK_SIZE;
 
         while (numberOfEvents && events[0]->time <= endTime) {
             time.time = events[0]->time;
