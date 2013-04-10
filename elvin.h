@@ -15,5 +15,6 @@
 
 #include "elvin/p_random.h"
 #include "elvin/p_sequence.h"
+#include "elvin/p_stutter.h"
 
 #endif
