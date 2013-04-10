@@ -103,8 +103,8 @@ public:
         while (numberOfEvents && events[0]->time <= endTime) {
             time.time = events[0]->time;
             updateClock();
-            std::unique_ptr<Event> &event = events[0];
             pop();
+            std::unique_ptr<Event> &event = events[numberOfEvents];
             bool needsPush = event->process(time);
             if (needsPush) {
                 push();
@@ -124,9 +124,9 @@ private:
     }
 
     void pop() {
-        numberOfEvents--;
         std::pop_heap(events.begin(), events.begin() + numberOfEvents,
                       compareEventTime);
+        numberOfEvents--;
     }
 
     bool full() {
@@ -148,7 +148,6 @@ private:
     void addEvent(EventPtr &event) {
         events[numberOfEvents] = std::move(event);
         push();
-        numberOfEvents++;
     }
 
     TimeData time;
