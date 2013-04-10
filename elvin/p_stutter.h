@@ -12,7 +12,6 @@ namespace elvin {
 class PStutterT : public PatternT {
 public:
     virtual NextTuple next() {
-        std::cout << position << " " << limit << std::endl;
         if (position == limit) {
             NextTuple valueTuple = pattern->next();
             NextTuple repeatTuple = repeats->next();
