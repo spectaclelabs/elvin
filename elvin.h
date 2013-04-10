@@ -16,5 +16,6 @@
 #include "elvin/p_random.h"
 #include "elvin/p_sequence.h"
 #include "elvin/p_stutter.h"
+#include "elvin/p_interlace.h"
 
 #endif
