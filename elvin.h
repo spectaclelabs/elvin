@@ -17,5 +17,9 @@
 #include "elvin/p_sequence.h"
 #include "elvin/p_stutter.h"
 #include "elvin/p_interlace.h"
+#include "elvin/p_choose.h"
+#include "elvin/p_constrain.h"
+#include "elvin/p_arithmetic.h"
+#include "elvin/p_geometric.h"
 
 #endif
