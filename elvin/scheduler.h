@@ -105,7 +105,14 @@ public:
             updateClock();
             pop();
             std::unique_ptr<Event> &event = events[numberOfEvents];
+            // While processing we need to pretend that numberOfEvents is
+            // one higher than it actually is by incrementing, then
+            // decrementing when we are done.  This is becuase if we add
+            // further events during processing they will overwrite the current
+            // event, which may need re-adding.
+            numberOfEvents++;
             bool needsPush = event->process(time);
+            numberOfEvents--;
             if (needsPush) {
                 push();
             }
