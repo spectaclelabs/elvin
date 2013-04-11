@@ -26,6 +26,14 @@ public:
         
         
     virtual bool process(const TimeData &time) {
+        NextTuple tuple = durationPattern->next();
+        bool hasValue = std::get<1>(tuple);
+
+        if (!hasValue) {
+            // No duration, so don't run the callback or add any further events
+            return false;
+        }
+
         bool shouldContinue = runCallback();
         if (!shouldContinue) {
             // Pattern hasn't provided a value, so don't process the callback
@@ -33,16 +41,11 @@ public:
             return false;
         }
 
-        NextTuple tuple = durationPattern->next();
+        // All okay, so advance the time and re-add the event
         Sample value = std::get<0>(tuple);
-        bool hasValue = std::get<1>(tuple);
-
-        if (hasValue) {
-            uint32_t dt = value * time.beatLength;
-            this->time += dt;
-            return true;
-        }
-        return false;
+        uint32_t dt = value * time.beatLength;
+        this->time += dt;
+        return true;
     }
 
     std::vector<Pattern> patterns;
