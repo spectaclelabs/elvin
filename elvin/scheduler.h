@@ -73,7 +73,7 @@ public:
                                                  std::move(durationPattern),
                                                  callback));
 
-        uint32_t id = id;
+        uint32_t id = event->id;
 
         events[numberOfEvents] = std::move(event);
         push();
