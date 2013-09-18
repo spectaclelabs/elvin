@@ -1,9 +1,22 @@
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
-#include "elvin/p_literal.h"
+#include "elvin/patterns/p_literal.h"
 
-int main(int argc, char** argv) {
-    testing::InitGoogleMock(&argc, argv);
-    return RUN_ALL_TESTS();
+using namespace elvin;
+using namespace testing;
+
+TEST(PLiteral, FloatValue) {
+    PLiteral pattern(0.4f);
+
+    auto next = pattern.next();
+    EXPECT_THAT(next.value, FloatEq(0.4f));
+    EXPECT_TRUE(next.exists);
+    EXPECT_TRUE(next.isLiteral);
+
+    next = pattern.next();
+    EXPECT_THAT(next.value, FloatEq(0.4f));
+    EXPECT_TRUE(next.exists);
+    EXPECT_TRUE(next.isLiteral);
 }
+

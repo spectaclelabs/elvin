@@ -1,8 +1,3 @@
-test_event
-test_indices
-test_pattern
-test_p_literal
-test_p_random
-test_p_sequence
-test_scheduler
-test_time_data
+*.o
+*.d
+test_runner
