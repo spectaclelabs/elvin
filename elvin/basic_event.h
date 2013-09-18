@@ -1,19 +1,16 @@
 #ifndef ELVIN_BASIC_EVENT_H
 #define ELVIN_BASIC_EVENT_H
 
-#include <functional>
-
-#include "thelonious/types.h"
+#include <memory>
 
 #include "time_data.h"
-
-using namespace thelonious;
+#include "event.h"
 
 namespace elvin {
 
 class BasicEvent : public Event {
 public:
-    BasicEvent(uint32_t time, std::function<void()> callback) :
+    BasicEvent(uint32_t time, void(*callback)()) :
         Event(time), callback(callback) {}
 
     virtual bool process(const TimeData &time) {
@@ -21,8 +18,10 @@ public:
         return false;
     }
 
-    std::function<void()> callback;
+    void(*callback)();
 };
+
+typedef std::unique_ptr<BasicEvent> BasicEventPtr;
 
 }
 

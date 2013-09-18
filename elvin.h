@@ -1,25 +1,26 @@
 #ifndef ELVIN_H
 #define ELVIN_H
 
-#include "elvin/pattern.h"
-#include "elvin/event.h"
 #include "elvin/scheduler.h"
 
 #include "elvin/pattern.h"
 
-#include "elvin/p_add.h"
-#include "elvin/p_subtract.h"
-#include "elvin/p_multiply.h"
-#include "elvin/p_divide.h"
-#include "elvin/p_modulo.h"
+#include "elvin/constants.h"
 
-#include "elvin/p_random.h"
-#include "elvin/p_sequence.h"
-#include "elvin/p_stutter.h"
-#include "elvin/p_interlace.h"
-#include "elvin/p_choose.h"
-#include "elvin/p_constrain.h"
-#include "elvin/p_arithmetic.h"
-#include "elvin/p_geometric.h"
+#include "elvin/operators/p_operator.h"
+
+#include "elvin/patterns/p_random.h"
+#include "elvin/patterns/p_sequence.h"
+#include "elvin/patterns/p_stutter.h"
+#include "elvin/patterns/p_interlace.h"
+#include "elvin/patterns/p_choose.h"
+#include "elvin/patterns/p_constrain.h"
+#include "elvin/patterns/p_arithmetic.h"
+#include "elvin/patterns/p_geometric.h"
+#include "elvin/patterns/p_pointer.h"
+
+namespace elvin {
+    using namespace collections;
+}
 
 #endif

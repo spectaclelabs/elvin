@@ -1,16 +1,13 @@
 #ifndef ELVIN_SCHEDULER_H
 #define ELVIN_SCHEDULER_H
 
-#include <memory>
 #include <algorithm>
-#include <functional>
 #include <array>
-
-#include "thelonious/constants/sizes.h"
 
 #include "event.h"
 #include "basic_event.h"
 #include "pattern_event.h"
+#include "pattern_type.h"
 #include "time_data.h"
 
 namespace elvin {
@@ -18,17 +15,18 @@ namespace elvin {
 template <size_t maxEvents=16>
 class Scheduler {
 public:
+
     Scheduler(float bpm=120.0f) :
         time(bpm) {
     }
 
-    uint32_t addRelative(float beats, std::function<void()>callback) {
+    uint32_t addRelative(float beats, void(*callback)()) {
         if (full()) {
             return 0;
         }
 
         uint32_t eventTime = time.time + beats * time.beatLength;
-        std::unique_ptr<BasicEvent> event(new BasicEvent(eventTime, callback));
+        BasicEventPtr event(new BasicEvent(eventTime, callback));
 
         uint32_t id = event->id;
 
@@ -38,7 +36,7 @@ public:
         return id;
     }
 
-    uint32_t addAbsolute(float beat, std::function<void()>callback) {
+    uint32_t addAbsolute(float beat, void(*callback)()) {
         if (full()) {
             return 0;
         }
@@ -49,7 +47,7 @@ public:
 
         uint32_t eventTime = time.lastBeatTime + (beat - time.beat) *
                            time.beatLength;
-        std::unique_ptr<BasicEvent> event(new BasicEvent(eventTime, callback));
+        BasicEventPtr event(new BasicEvent(eventTime, callback));
 
         uint32_t id = event->id;
 
@@ -59,19 +57,24 @@ public:
         return id;
     }
 
-    template <typename CallbackType>
-    uint32_t play(std::initializer_list<Pattern> patterns,
-                  Pattern durationPattern,
-                  CallbackType callback) {
+    template <typename CollectionType, typename DurationPatternF,
+              typename... CallbackArgs>
+    uint32_t play(CollectionType patterns,
+                  DurationPatternF durationPattern,
+                  void(*callback)(CallbackArgs...)) {
+    
         if (full()) {
             return 0;
         }
 
-        std::unique_ptr<PatternEvent<CallbackType>>
-            event(new PatternEvent<CallbackType>(time.time,
-                                                 std::move(patterns),
-                                                 std::move(durationPattern),
-                                                 callback));
+        typedef PatternType<DurationPatternF> DurationPattern;
+
+        PatternEventPtr<CollectionType, DurationPattern, CallbackArgs...> event(
+            new PatternEvent<CollectionType, DurationPattern, CallbackArgs...>(
+                time.time, std::move(patterns), std::move(durationPattern),
+                callback
+            )
+        );
 
         uint32_t id = event->id;
 
@@ -86,6 +89,7 @@ public:
         for (auto it=events.begin(); it!=events.begin()+numberOfEvents; it++) {
             EventPtr& event = *it;
             if (event->id == eventId) {
+                event.reset();
                 std::swap(event, endEvent);
                 numberOfEvents--;
                 std::make_heap(events.begin(),
@@ -98,13 +102,13 @@ public:
 
 
     void tick() {
-        uint32_t endTime = time.time + thelonious::constants::BLOCK_SIZE;
+        uint32_t endTime = time.time + constants::BLOCK_SIZE;
 
         while (numberOfEvents && events[0]->time <= endTime) {
             time.time = events[0]->time;
             updateClock();
             pop();
-            std::unique_ptr<Event> &event = events[numberOfEvents];
+            EventPtr &event = events[numberOfEvents];
             // While processing we need to pretend that numberOfEvents is
             // one higher than it actually is by incrementing, then
             // decrementing when we are done.  This is becuase if we add
@@ -115,6 +119,9 @@ public:
             numberOfEvents--;
             if (needsPush) {
                 push();
+            }
+            else {
+                event.reset();
             }
         }
         time.time = endTime;
@@ -150,11 +157,6 @@ private:
             }
             time.lastBeatTime += time.beatLength;
         }
-    }
-
-    void addEvent(EventPtr &event) {
-        events[numberOfEvents] = std::move(event);
-        push();
     }
 
     TimeData time;

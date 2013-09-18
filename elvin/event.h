@@ -3,11 +3,7 @@
 
 #include <memory>
 
-#include "thelonious/types.h"
-
 #include "time_data.h"
-
-using namespace thelonious;
 
 namespace elvin {
 
@@ -32,7 +28,7 @@ public:
 
 typedef std::unique_ptr<Event> EventPtr;
 
-bool compareEventTime(EventPtr &a, EventPtr &b) {
+inline bool compareEventTime(EventPtr &a, EventPtr &b) {
     return a->time > b->time;
 }
 

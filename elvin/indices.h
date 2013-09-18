@@ -3,26 +3,20 @@
 
 namespace elvin {
 
-// Here be dragons
-// Variadic template magic thanks to Martinho Fernandes
-// Taken from http://stackoverflow.com/q/10929202#10930078
-template <std::size_t... Indices>
-struct indices {
-    using next = indices<Indices..., sizeof...(Indices)>;
+template <std::size_t... Is>
+struct Indices {
+    using next = Indices<Is..., sizeof...(Is)>;
 };
 
 template <std::size_t N>
-struct build_indices {
-    using type = typename build_indices<N-1>::type::next;
+struct IndexBuilder {
+    using type = typename IndexBuilder<N-1>::type::next;
 };
 
 template <>
-struct build_indices<0> {
-    using type = indices<>;
+struct IndexBuilder<0> {
+    using type = Indices<>;
 };
-
-template <std::size_t N>
-using BuildIndices = typename build_indices<N>::type;
 
 }
 

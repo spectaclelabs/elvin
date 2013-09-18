@@ -1,9 +1,7 @@
 #ifndef ELVIN_TIME_DATA_H
 #define ELVIN_TIME_DATA_H
 
-#include "thelonious/constants/rates.h"
-
-using namespace thelonious;
+#include "constants.h"
 
 namespace elvin {
 
@@ -12,7 +10,7 @@ public:
     TimeData(float bpm) :
         bpm(bpm), time(0.0f), beat(0.0f), beatInBar(0.0f), bar(0.0f),
         beatsPerBar(0.0f), lastBeatTime(0.0f),
-        beatLength(thelonious::constants::SAMPLE_RATE * 60.0f / bpm) {}
+        beatLength(constants::SAMPLE_RATE * 60.0f / bpm) {}
         
     float bpm;
     uint32_t time;
