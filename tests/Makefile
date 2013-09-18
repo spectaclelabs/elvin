@@ -4,10 +4,10 @@ OBJ = $(SRC:.cc=.o)
 DEPS = $(SRC:.cc=.d)
 EXE = test_runner
 
-GMOCK_DIR = ../../gmock-1.6.0
+GMOCK_DIR ?= ../../gmock-1.6.0
 
 # Compiler options
-CXX = g++
+CXX ?= g++
 CXXFLAGS = -Werror -Wall -g -std=c++11
 INC = -I ../
 LIB = -L $(GMOCK_DIR) -l gmock -l pthread

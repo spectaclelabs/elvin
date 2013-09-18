@@ -1,0 +1,22 @@
+language: cpp
+compiler:
+    - gcc
+    - clang
+before-install:
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+    - sudo apt-get update -qq
+install: 
+    - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+    - if [ "$CXX" = "g++" ]; then export CXX=g++-4.8; fi
+    - wget https://googlemock.googlecode.com/files/gmock-1.6.0.zip
+    - unzip gmock-1.6.0.zip
+    - cd gmock-1.6.0
+    - ./configure
+    - make
+    - export GMOCK_DIR=`pwd`
+    - cd ..
+before-script:
+    - cd tests
+script:
+    - make GMOCK_DIR=../gmock-1.6.0
+    - make tests
