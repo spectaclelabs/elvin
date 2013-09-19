@@ -8,9 +8,9 @@ before_install:
 install: 
     - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
     - if [ "$CXX" = "g++" ]; then export CXX=g++-4.8; fi
-    - wget https://googlemock.googlecode.com/files/gmock-1.6.0.zip
-    - unzip gmock-1.6.0.zip
-    - cd gmock-1.6.0/make
+    - wget https://googlemock.googlecode.com/files/gmock-1.7.0.zip
+    - unzip gmock-1.7.0.zip
+    - cd gmock-1.7.0/make
     - make gmock.a
     - cd ..
     - export GMOCK_DIR=`pwd`
