@@ -18,5 +18,5 @@ install:
 before_script:
     - cd tests
 script:
-    - make GMOCK_DIR=../gmock-1.6.0
+    - make
     - make tests
