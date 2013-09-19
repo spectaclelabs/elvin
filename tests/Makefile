@@ -10,7 +10,8 @@ GMOCK_DIR ?= ../../gmock-1.6.0
 CXX ?= g++
 CXXFLAGS = -Werror -Wall -g -std=c++11
 INC = -I ../ -I $(GMOCK_DIR)/include -I $(GMOCK_DIR)/gtest/include
-LIB = -L $(GMOCK_DIR) -l gmock -l pthread
+LIB = -l pthread
+GMOCK = $(GMOCK_DIR)/make/gmock.a
 
 all: $(EXE)
 
@@ -18,7 +19,7 @@ test:
 	./test_runner
 
 $(EXE): $(OBJ) $(DEPS)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(LIB)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(GMOCK) $(LIB)
 
 %.o: %.cc
 	$(CXX) $(INC) $(CXXFLAGS) -c $<
